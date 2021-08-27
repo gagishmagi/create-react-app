@@ -2,6 +2,7 @@ import './App.css';
 import dummyData from "./data";
 import CardList from './Components/CardList';
 import { Component } from 'react';
+import SkeletonCard from './Components/SkeletonCard';
 
 class App extends Component {
   
@@ -41,7 +42,7 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-         {
+         {/* {
           this.state.videos.map((list, index) => {
             return (
               <section key={index}>
@@ -50,7 +51,8 @@ class App extends Component {
                 <hr />
               </section>
             );
-          })}
+          })} */}
+          <SkeletonCard/>
       </div>
     );
   }
