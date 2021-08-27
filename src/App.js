@@ -1,25 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
+import dummyData from "./data";
+import CardList from './Components/CardList';
+import { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  
+  constructor(props){
+    super(props)
+    this.state = {
+      videos: [],
+      loading: false,
+      timer: null
+    }
+  }
+
+  setVideosState(videos = []){
+    this.setState({videos})
+  }
+
+  setLoadingState(value = false){
+    this.setState({loading: value})
+  }
+  
+
+  componentDidMount(){
+    this.setLoadingState(true);
+    const timer = setTimeout(() => {
+      this.setVideosState(dummyData);
+      this.setLoadingState(false);
+    }, 5000);
+    this.setState({timer})
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.state.timer)
+  }
+
+
+
+  render(){
+    return (
+      <div className="App">
+         {
+          this.state.videos.map((list, index) => {
+            return (
+              <section key={index}>
+                <h2 className="section-title">{list.section}</h2>
+                <CardList list={list} />
+                <hr />
+              </section>
+            );
+          })}
+      </div>
+    );
+  }
 }
 
 export default App;
